@@ -1,32 +1,18 @@
 import React from 'react';
-
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import jobReducer from '../reducers/jobReducer';
 import JobContainer from "../container/JobSearchContainer";
 import {Link, BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import '../../node_modules/font-awesome/css/font-awesome.css';
-import RegisterComponent from "./RegisterComponent";
-import mainReducer from '../reducers/JobBoardReducer'
 import LoginContainer from '../container/LoginContainer';
-import PrivateProfileComponent from "./PrivateProfileComponent";
 import PrivateProfileContainer from '../container/PrivateProfileContainer'
-import JobDetails from "./JobDetails";
-import LoginComponent from "./LoginComponent";
 import UserSearchComponent from "./UserSearchComponent";
 import RegisterUserContainer from "../container/RegisterUserContainer";
 import UserService from "../services/UserService"
-import JobsContainer from "../container/JobsContainer"
 import JobSearchContainer from "../container/JobSearchContainer"
-import SearchFields from "./SearchFields";
-import SkillSearch from "./SkillSearch";
 import SkillSearchContainer from "../container/SkillSearchContainer";
-import CompanyList from "./CompanyList";
 import CompanyListContainer from "../container/CompanyListContainer";
-
-import CompanyDetailsComponent from "./CompanyDetailsComponent";
-import LatestDetails from "./LatestDetails";
-import AdminContainer from "../container/AdminContainer";
+import jQuery from 'jquery';
+window.jQuery = window.$ = require('../../node_modules/jquery/dist/jquery.js');
+require('../../node_modules/bootstrap/dist/js/bootstrap.bundle.js');
 let userService = UserService.getInstance();
 
 export default class JobBoard extends React.Component{
@@ -67,7 +53,7 @@ export default class JobBoard extends React.Component{
                 {/*    render={(props) =>*/}
                 {/*    <AdminContainer/>}/>*/}
                 {/*}*/}
-                <div className="navbar navbar-expand-sm navbar-dark bg-dark">
+                <div className="navbar navbar-expand-md navbar-dark bg-dark">
                     <Link to={'/'}>
                         <img  src="https://picsum.photos/id/20/40/40" className=" navbar-brand rounded-top rounded-bottom"
                               style={{'margin': '0', 'padding':'0', 'border':'1px solid white'}}/>
@@ -81,7 +67,7 @@ export default class JobBoard extends React.Component{
                         <span className="navbar-toggler-icon" />
                     </button>
 
-                    <ul className="navbar-nav">
+                    <ul className="navbar-nav collapse navbar-collapse" id="navbarText">
                         <li className="nav-item nav-link">
                             <Link to={`/`}>
                             <button className="btn btn-outline-light"> Home </button>
@@ -106,7 +92,7 @@ export default class JobBoard extends React.Component{
                     <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav mr-1 ml-auto">
 
-                            <li className="nav-item nav-link">
+                            <li className="nav-item nav-link ">
                                 <div className="form-inline">
                                     <input className="form-control" type="text"
                                            placeholder="Search for people"
@@ -133,7 +119,7 @@ export default class JobBoard extends React.Component{
                         </li>
                         }
                         {!this.props.isUserLoggedIn &&
-                        <li className="nav-item nav-link">
+                        <li className="nav-item nav-link ">
                             <Link to={`/register`}>
                                 <button className="btn btn-block bg-light">Register</button>
                             </Link>
@@ -143,7 +129,7 @@ export default class JobBoard extends React.Component{
                             this.props.isUserLoggedIn &&
                                 <li className="nav-item nav-link">
                                     <Link to={`/profile`}>
-                                        <button className="btn bg-transparent btn-outline-success">
+                                        <button className="btn bg-transparent btn-outline-success btn-block">
                                             {this.props.user.username}
                                             <i className="fa fa-user-circle"
                                                style={{'marginLeft':'0.2em', 'borderLeft':'2px solid green',
@@ -156,7 +142,7 @@ export default class JobBoard extends React.Component{
                             this.props.isUserLoggedIn &&
                                 <li className="nav-item nav-link">
                                     <Link to={`/`} onClick={() => this.props.logOutUser()}>
-                                        <button className="btn bg-transparent btn-outline-danger">
+                                        <button className="btn bg-transparent btn-block btn-outline-danger">
                                             <i className="fa fa-sign-out"/>
                                         </button>
                                     </Link>

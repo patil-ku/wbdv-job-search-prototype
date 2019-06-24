@@ -4,6 +4,7 @@ import {Link, Route} from "react-router-dom";
 
 import JobDetails from "./JobDetails";
 import PublicProfileComponent from "./PublicProfileComponent";
+import UpdateJobComponent from "./UpdateJobComponent";
 
 class PrivateProfileComponent extends React.Component {
     constructor(props) {
@@ -12,12 +13,19 @@ class PrivateProfileComponent extends React.Component {
         this.state = {
             job: null,
             user: {},
+            updateJobToggle: false
 
         }
         // localStorage.setItem('isUserLoggedIn', this.state.isUserLoggedIn)
         // this.state = {
         //     isUserLoggedIn : this.props.isUserLoggedIn
         // }
+    }
+
+    setUpdateJobToggle = () => {
+        this.setState({
+            updateJobToggle: true
+        })
     }
 
 
@@ -68,6 +76,12 @@ class PrivateProfileComponent extends React.Component {
         }
     }
 
+    updateJob = (job) => {
+        this.setState({
+            job: job
+        })
+    }
+
 
     render() {
         return (
@@ -112,9 +126,13 @@ class PrivateProfileComponent extends React.Component {
 
                                                 <li className="list-group-item">
                                                     <button className="btn"
-                                                            onClick={() => this.set_Job(posting.id,
-                                                                this.props.allAddedJobs)}>
+                                                            onClick={() => {this.set_Job(posting.id,
+                                                                this.props.allAddedJobs); this.setState({updateJobToggle: false})}}>
                                                         {posting.title}
+                                                    </button>
+                                                    <button className="btn btn-outline-warning float-right"
+                                                            onClick={() => this.setUpdateJobToggle()}>
+                                                        Edit Job
                                                     </button>
                                                 </li>)
 
@@ -378,12 +396,23 @@ class PrivateProfileComponent extends React.Component {
                         }
 
                         {
-                            this.props.tab === "ALL_ADDED_JOBS" &&
-                            this.state.job !== null &&
+                            (this.props.tab === "ALL_ADDED_JOBS" &&
+                            this.state.job !== null )&&
 
+                                !this.state.updateJobToggle ? (
                             <JobDetails userId={this.props.loggedInUser.id} job={this.state.job}
                                         findAllJobs={this.props.getSavedGitJobs}
                                         set_job={this.set_Job}/>
+                            ):(
+                                this.state.job !== null && this.props.loggedInUser.role === "RECRUITER" &&
+                                    <UpdateJobComponent job={ this.state.job}
+                                                        user={this.props.loggedInUser}
+                                                    updateJob={this.updateJob}
+                                                    saveUpdatedJob={this.props.saveUpdatedJob}/>
+                                // <UpdateJobComponent job={this.state.job} user={this.props.loggedInUser}
+                                //                     findAllJobs={this.props.getSavedGitJobs}
+                                //                     set_job={this.set_Job}/>
+                            )
 
                         }
 

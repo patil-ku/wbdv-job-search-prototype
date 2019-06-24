@@ -7,8 +7,8 @@ const JobDetails =({job, addJob, userId, user, findAllJobs, set_job}) => {
     return (
 
         <div className="container">
-            {console.log("JOB DETAILS")}
-            {console.log(job, findAllJobs, userId)}
+            {/*{console.log("JOB DETAILS")}*/}
+            {/*{console.log(job, findAllJobs, userId)}*/}
             {job &&
             <div>
                 <div className="card">
@@ -83,7 +83,7 @@ const JobDetails =({job, addJob, userId, user, findAllJobs, set_job}) => {
                     </div>
                     {addJob ?(
                     <div className="form-group">
-                        {user.role === "STUDENT" &&
+                        {user.role === "STUDENT" && addJob &&
                         <button className="btn btn-block btn-success"
                                 onClick={() => {addJob(job, userId); alert("Added to profile")}}>
                             Add Job to Profile

@@ -136,6 +136,18 @@ const privateProfileReducer = (state = {user: {} , tab : 'PROFILE' ,
                 allAddedJobs:[]
             };
 
+        case 'SAVE_UPDATED_JOB':
+            return{
+                tab: state.tab,
+                user: state.user,
+                job: action.job,
+                savedGitJobs:[],
+                markedStudents:[],
+                followingStudents:[],
+                followedStudents:[],
+                allAddedJobs:[]
+            }
+
 
 
 
